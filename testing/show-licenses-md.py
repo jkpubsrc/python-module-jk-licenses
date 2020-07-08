@@ -7,7 +7,7 @@ from jk_console import *
 
 
 table = SimpleTable()
-table.addRow("Main license ID", "Alternative license IDs", "Human readable name", "Placeholders")
+table.addRow("Main license ID", "Alternative license IDs", "Human readable name", "Variables")
 table.addRow("---", "---", "---", "---")
 
 for license in LICENSE_MGR.licenses:

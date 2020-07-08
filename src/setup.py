@@ -23,7 +23,7 @@ setup(
 		"License :: OSI Approved :: Apache Software License",
 	],
 	description = "This python module provides OS licenses. This module is intended as a building block in module/package/application management.",
-	download_url = "https://github.com/jkpubsrc/python-module-jk-licenses/tarball/0.2020.3.20",
+	download_url = "https://github.com/jkpubsrc/python-module-jk-licenses/tarball/0.2020.7.8",
 	include_package_data = True,
 	install_requires = [
 	],
@@ -41,7 +41,7 @@ setup(
 		"jk_licenses",
 	],
 	url = "https://github.com/jkpubsrc/python-module-jk-licenses",
-	version = "0.2020.3.20",
+	version = "0.2020.7.8",
 	zip_safe = False,
 	long_description = readme(),
 	long_description_content_type="text/markdown",

@@ -110,6 +110,32 @@ class LicenseMgr(object):
 		return self.__licenses[identifier]
 	#
 
+	def createLicenseMap(self) -> typing.Dict[str,list]:
+		if self.__licenses is None:
+			self.scan()
+		ret = {}
+		for license in self.__licensesByMainID.values():
+			licenseIDSet = []
+			for licenseID in license.licenseIDs:
+				if licenseID == license.licenseID:
+					continue
+				licenseIDSet.append(licenseID)
+			ret[license.licenseID] = licenseIDSet
+		return ret
+	#
+
+	def createAlternativeLicenseIDMap(self) -> typing.Dict[str,str]:
+		if self.__licenses is None:
+			self.scan()
+		ret = {}
+		for license in self.__licensesByMainID.values():
+			for licenseID in license.licenseIDs:
+				if licenseID == license.licenseID:
+					continue
+				ret[licenseID] = license.licenseID
+		return ret
+	#
+
 #
 
 

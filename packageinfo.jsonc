@@ -1,52 +1,52 @@
 {
-	"language": "python3",
-	"name": "jk_licenses",
-	"version": "0.2020.7.8",
+	"documentation": [],
+	"magic": {
+		"magic": "packageinfo",
+		"version": 2
+	},
 	"meta": {
+		"authors": [
+			{
+				"email": "pubsrc@binary-overflow.de",
+				"name": "J\u00fcrgen Knauth"
+			}
+		],
 		"description": "This python module provides OS licenses. This module is intended as a building block in module/package/application management.",
+		"development_status": "stable",
 		"keywords": [
 			"license"
 		],
-		"license": "Apache 2.0",
-		"development_status": "alpha",
-		"authors": [
-			{
-				"name": "Jürgen Knauth",
-				"email": "pubsrc@binary-overflow.de"
-			}
-		],
-		"wiki": {
-			"page": "DevDocs:jk_licenses"
-		}
+		"language": "python3",
+		"license": "Apache2",
+		"name": "jk_licenses",
+		"packageClass": "python-module",
+		"version": "0.2020.7.9"
 	},
 	"repositories": [
 		{
-			"type": "github",
-			"user": "jkpubsrc",
+			"devon_publish": false,
 			"project": "python-module-jk-licenses",
-			"devon_publish": false
+			"type": "github",
+			"user": "jkpubsrc"
 		},
 		{
-			"type": "pypy",
+			"devon_publish": false,
 			"project": "jk_licenses",
-			"devon_publish": false
+			"type": "pypi"
 		}
 	],
+	"requirements": {
+		"python_packages": [],
+		"python_packages_dev": [],
+		"system_apt_packages": []
+	},
 	"source": {
-		"packages": [
-			"jk_licenses"
-		],
+		"extra_binary_files": [],
 		"extra_data_files": [
 			"licenses/*"
 		],
-		"extra_binary_files": [
-		]
-	},
-	"requirements": {
-		"python_packages": [
-		],
-		"python_packages_dev": [
+		"packages": [
+			"jk_licenses"
 		]
 	}
 }
-

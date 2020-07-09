@@ -30,6 +30,9 @@ class License(object):
 	def __init__(self, mainIdentifier:str, allIdentifiers:Union[list,tuple], name:str, url:str, classifier:Union[str,None], rawLicenseFilePath:Union[str,None], varDefs:Union[dict,None]):
 		self.__licenseID = mainIdentifier
 		self.__licenseIDs = tuple(sorted(set(allIdentifiers)))
+		self.__alternativeLicenseIDs = set(self.__licenseIDs)
+		self.__alternativeLicenseIDs.remove(self.__licenseID)
+		self.__alternativeLicenseIDs = tuple(sorted(self.__alternativeLicenseIDs))
 		self.__name = name
 		self.__url = url
 		self.__classifier = classifier
@@ -51,6 +54,11 @@ class License(object):
 	@property
 	def licenseIDs(self) -> tuple:
 		return self.__licenseIDs
+	#
+
+	@property
+	def alternativeLicenseIDs(self) -> tuple:
+		return self.__alternativeLicenseIDs
 	#
 
 	@property

@@ -13,7 +13,7 @@ table.addRow("---", "---", "---", "---")
 for license in LICENSE_MGR.licenses:
 	table.addRow(
 		license.licenseID,
-		", ".join(license.licenseIDs[1:]),
+		", ".join(license.alternativeLicenseIDs),
 		license.name,
 		", ".join([ v.name for v in license.variableDefinitions ])
 	)

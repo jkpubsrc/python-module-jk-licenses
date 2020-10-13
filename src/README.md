@@ -1,4 +1,4 @@
-﻿jk_licenses
+jk_licenses
 ==========
 
 Introduction

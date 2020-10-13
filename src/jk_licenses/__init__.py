@@ -1,7 +1,7 @@
 ﻿
 
 
-__version__ = "0.2020.7.8"
+__version__ = "0.2020.10.13"
 
 
 
@@ -13,7 +13,6 @@ from .LicenseMgr import LicenseMgr
 
 
 LICENSE_MGR = LicenseMgr()
-
 
 
 

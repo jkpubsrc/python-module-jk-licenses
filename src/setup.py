@@ -19,18 +19,18 @@ setup(
 	author = "Jürgen Knauth",
 	author_email = "pubsrc@binary-overflow.de",
 	classifiers = [
-		"Development Status :: 3 - Alpha",
+		"Development Status :: 5 - Production/Stable",
 		"License :: OSI Approved :: Apache Software License",
+		"Programming Language :: Python :: 3",
 	],
 	description = "This python module provides OS licenses. This module is intended as a building block in module/package/application management.",
-	download_url = "https://github.com/jkpubsrc/python-module-jk-licenses/tarball/0.2020.7.8",
 	include_package_data = True,
 	install_requires = [
 	],
 	keywords = [
 		"license",
 	],
-	license = "Apache 2.0",
+	license = "Apache2",
 	name = "jk_licenses",
 	package_data = {
 		"": [
@@ -40,8 +40,7 @@ setup(
 	packages = [
 		"jk_licenses",
 	],
-	url = "https://github.com/jkpubsrc/python-module-jk-licenses",
-	version = "0.2020.7.8",
+	version = "0.2020.10.13",
 	zip_safe = False,
 	long_description = readme(),
 	long_description_content_type="text/markdown",

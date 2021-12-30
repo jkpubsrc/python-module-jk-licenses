@@ -33,6 +33,7 @@ The following table provides an overview about the licenses available in this mo
 | GPLv3           | GPL-3.0, GPLv3          | GNU General Public License version 3        |                       |
 | LGPLv3          | LGPL-3.0, LGPLv3        | GNU Lesser General Public License version 3 |                       |
 | MIT             |                         | MIT License                                 | year, copyrightHolder |
+| Proprietary     | proprietary             | Propriertary License                        | year, copyrightHolder |
 
 How to use this module
 ----------------------

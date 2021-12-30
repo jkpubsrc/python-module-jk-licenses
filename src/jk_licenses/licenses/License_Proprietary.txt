@@ -1,0 +1,5 @@
+Copyright (c) {{year}} by {{copyrightHolder}}
+
+This software is genuine work created by Jürgen Knauth. Distribution of source code, object code or any associated files of this work is generally prohibited.
+
+For licensing details see EULA.txt or LICENSE.txt if present, or consult the author of this software directly.

@@ -8,7 +8,7 @@ This python module provides OS licenses.
 
 Information about this module can be found here:
 
-* [github.org](https://github.com/jkpubsrc/python-module-jk-licenses)
+* [github.com](https://github.com/jkpubsrc/python-module-jk-licenses)
 * [pypi.python.org](https://pypi.python.org/pypi/jk_licenses)
 
 Why this module?

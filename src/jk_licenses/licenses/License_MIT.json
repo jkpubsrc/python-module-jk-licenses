@@ -11,7 +11,7 @@
 		},
 		{
 			"name": "year",
-			"type": "str",
+			"type": "int|str",
 			"description": "The year either as a number such as 2019 or as a range such as 2011-2019"
 		}
 	]

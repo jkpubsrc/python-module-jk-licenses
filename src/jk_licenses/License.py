@@ -1,8 +1,7 @@
 
 
-import os
 import re
-from typing import Union, List
+import typing
 
 import jk_typing
 
@@ -16,19 +15,36 @@ from .VariableDef import VariableDef
 #
 class License(object):
 
+	################################################################################################################################
+	## Constants
+	################################################################################################################################
+
+	################################################################################################################################
+	## Constructor
+	################################################################################################################################
+
 	#
 	# Constructor.
 	#
-	# @param	str mainIdentifier					(required) The unique identifier of the license.
-	# @param	str[] allIdentifiers				(required) The unique identifier of the license.
-	# @param	str name							(required) The human readable name of the license.
-	# @param	str url								(required) An URL with information about this license (if exists).
-	# @param	str classifier						(optional) The python classifier such as "License :: OSI Approved :: MIT License".
-	# @param	str rawLicenseFilePath				(optional) The file containing the license text in plaintext format.
-	# @param	VariableDef[] rawLicenseFilePath	(optional) The placeholders for this license text.
+	# @param	str mainIdentifier								(required) The unique identifier of the license.
+	# @param	str[] allIdentifiers							(required) The unique identifier of the license.
+	# @param	str name										(required) The human readable name of the license.
+	# @param	str url											(optional) An URL with information about this license (if exists).
+	# @param	str classifier									(optional) The python classifier such as "License :: OSI Approved :: MIT License".
+	# @param	str rawLicenseFilePath							(optional) The file containing the license text in plaintext format.
+	# @param	dict<str,VariableDef>|VariableDef[] varDefs		(optional) The placeholders for this license text.
 	#
 	@jk_typing.checkFunctionSignature()
-	def __init__(self, mainIdentifier:str, allIdentifiers:Union[list,tuple], name:str, url:str, classifier:Union[str,None], rawLicenseFilePath:Union[str,None], varDefs:Union[dict,None]):
+	def __init__(self,
+			mainIdentifier:str,
+			allIdentifiers:typing.Union[list,tuple],
+			name:str,
+			url:typing.Union[str,None],
+			classifier:typing.Union[str,None],
+			rawLicenseFilePath:typing.Union[str,None],
+			varDefs:typing.Union[typing.Dict[str,VariableDef],typing.List[VariableDef],typing.Tuple[VariableDef],None]
+		):
+
 		self.__licenseID = mainIdentifier
 		self.__licenseIDs = tuple(sorted(set(allIdentifiers)))
 		self.__alternativeLicenseIDs = set(self.__licenseIDs)
@@ -37,10 +53,19 @@ class License(object):
 		self.__name = name
 		self.__url = url
 		self.__classifier = classifier
-		self.__variableDefs = varDefs
+		self.__variableDefs:typing.Dict[str,VariableDef] = {}
+		if isinstance(varDefs, dict):
+			self.__variableDefs.update(varDefs)
+		elif isinstance(varDefs, (tuple,list)):
+			for v in varDefs:
+				self.__variableDefs[v.name] = v
 		self.__rawLicenseFilePath = rawLicenseFilePath
 		self.__rawTextCached = None
 	#
+
+	################################################################################################################################
+	## Public Properties
+	################################################################################################################################
 
 	@property
 	def variableDefinitions(self) -> tuple:
@@ -72,6 +97,10 @@ class License(object):
 		return self.__licenseID
 	#
 
+	################################################################################################################################
+	## Helper Methods
+	################################################################################################################################
+
 	@jk_typing.checkFunctionSignature()
 	def __extractVars(self, rawText:str) -> set:
 		ret = set()
@@ -86,6 +115,18 @@ class License(object):
 			text = text.replace(substKey, substValue)
 		return text
 	#
+
+	def __loadLicenseText(self) -> str:
+		if self.__rawLicenseFilePath:
+			with open(self.__rawLicenseFilePath, "r", encoding="UTF-8-sig") as f:
+				return f.read().rstrip()
+		else:
+			return "(license text not available)"
+	#
+
+	################################################################################################################################
+	## Public Methods
+	################################################################################################################################
 
 	@jk_typing.checkFunctionSignature()
 	def produceText(self, variableAssignments:dict = None) -> str:
@@ -121,15 +162,12 @@ class License(object):
 			raise Exception("No value specified for variable(s): " + repr(list(missingVariables))[1:-1])
 	#
 
-	def __loadLicenseText(self) -> str:
-		if self.__rawLicenseFilePath:
-			with open(self.__rawLicenseFilePath, "r", encoding="UTF-8-sig") as f:
-				return f.read().rstrip()
-		else:
-			return "(license text not available)"
-	#
+	################################################################################################################################
+	## Public Static Methods
+	################################################################################################################################
 
 #
+
 
 
 

@@ -2,15 +2,20 @@
 
 
 
-import collections
+import typing
 
 
 
 
 
 
+class VariableDef(typing.NamedTuple):
 
-VariableDef = collections.namedtuple("VariableDef", [ "name", "typeID", "description" ])
+	name:str
+	typeID:str
+	description:str
+
+#
 
 
 

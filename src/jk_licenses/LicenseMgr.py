@@ -2,6 +2,7 @@
 
 import os
 import typing
+
 import jk_json
 
 from .License import License
@@ -13,19 +14,39 @@ from .VariableDef import VariableDef
 
 class LicenseMgr(object):
 
-	def __init__(self, licenseDirs:list = None):
+	################################################################################################################################
+	## Constants
+	################################################################################################################################
+
+	################################################################################################################################
+	## Constructor
+	################################################################################################################################
+
+	#
+	# Constructor method.
+	#
+	def __init__(self, licenseDirs:typing.Union[list,tuple] = None):
 		if licenseDirs is None:
 			licenseDirs = []
-
 			licenseDirs.append(os.path.join(os.path.dirname(__file__), "licenses"))
+		else:
+			assert isinstance(licenseDirs, (tuple,list))
+			for _dir in licenseDirs:
+				assert isinstance(_dir, str)
 
-		self.__licenseDirs = tuple(licenseDirs)
-		self.__licenses = None
-		self.__licensesByMainID = None
+		# ----
+
+		self.__licenseDirs:typing.Tuple[str] = tuple(licenseDirs)
+		self.__licenses:typing.Dict[str,License] = None
+		self.__licensesByMainID:typing.Dict[str,License] = None
 	#
 
+	################################################################################################################################
+	## Public Properties
+	################################################################################################################################
+
 	@property
-	def dirPaths(self) -> tuple:
+	def dirPaths(self) -> typing.Tuple[str]:
 		return self.__licenseDirs
 	#
 
@@ -44,7 +65,7 @@ class LicenseMgr(object):
 	#
 
 	@property
-	def licenses(self) -> typing.Sequence[License]:
+	def licenses(self) -> typing.Generator[License,License,License]:
 		if self.__licensesByMainID is None:
 			self.scan()
 		mainLicenseIDs = [ l.licenseID for l in self.__licenses.values() ]
@@ -52,18 +73,15 @@ class LicenseMgr(object):
 			yield self.__licensesByMainID[licenseID]
 	#
 
-	def scan(self):
-		self.__licenses = {}
-		self.__licensesByMainID = {}
-		for dirPath in self.__licenseDirs:
-			if os.path.isdir(dirPath):
-				for entry in os.listdir(dirPath):
-					if entry.endswith(".json"):
-						fullPath = os.path.join(dirPath, entry)
-						self.__loadLicense(fullPath)
-	#
+	################################################################################################################################
+	## Helper Methods
+	################################################################################################################################
 
 	def __loadLicense(self, fullPath:str):
+		assert isinstance(fullPath, str)
+
+		# ----
+
 		licenseRawFilePath = fullPath[:-5] + ".txt"
 		if not os.path.isfile(licenseRawFilePath):
 			licenseRawFilePath = None
@@ -90,11 +108,11 @@ class LicenseMgr(object):
 			for jVarDefs in jLicenseInfo["variables"]:
 				varName = jVarDefs["name"]
 				varType = jVarDefs.get("type", "str")
-				assert varType in [ "bool", "str", "int" ]
+				assert varType in [ "bool", "str", "int", "str|int", "int|str", ]
 				varDescr = jVarDefs.get("description")
 				variableDefs[varName] = VariableDef(varName, varType, varDescr)
 
-		#
+		# ----
 
 		lic = License(mainIdentifier, identifiers, name, url, classifier, licenseRawFilePath, variableDefs)
 
@@ -102,6 +120,21 @@ class LicenseMgr(object):
 		self.__licenses[lic.licenseID] = lic
 		for licenseID in lic.licenseIDs:
 			self.__licenses[licenseID] = lic
+	#
+
+	################################################################################################################################
+	## Public Methods
+	################################################################################################################################
+
+	def scan(self):
+		self.__licenses = {}
+		self.__licensesByMainID = {}
+		for dirPath in self.__licenseDirs:
+			if os.path.isdir(dirPath):
+				for entry in os.listdir(dirPath):
+					if entry.endswith(".json") or entry.endswith(".jsonc"):
+						fullPath = os.path.join(dirPath, entry)
+						self.__loadLicense(fullPath)
 	#
 
 	def getLicense(self, identifier:str):
@@ -135,6 +168,10 @@ class LicenseMgr(object):
 				ret[licenseID] = license.licenseID
 		return ret
 	#
+
+	################################################################################################################################
+	## Public Static Methods
+	################################################################################################################################
 
 #
 
